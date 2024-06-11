@@ -51,23 +51,17 @@ function AdminProfileCard() {
 
   const columns = [
     { field: "id", headerName: "#", width: 50 },
-    { field: "HandsetName", headerName: "NAME", width: 120 },
-    { field: "EmployeeName", headerName: "EMPLOYEE", width: 180 },
-    { field: "AssetName", headerName: "ASSET", width: 180 },
-    { field: "AllocationDate", headerName: "ALLOCATION DATE", width: 140 },
-    { field: "EmploymentStatus", headerName: "ALLOCATION CHECK", width: 180 },
-    { field: "ReturnDueDate", headerName: "RETURN DUE DATE", width: 140 },
+    { field: "HandsetName", headerName: "NAME", width: 490 },
+    { field: "Role", headerName: "ROLE", width: 390 },
+    { field: "CreatedDate", headerName: "DATE ADDED", width: 180 }
   ];
 
   const rows = data.map((handset, index) => {
     return {
       id: index + 1, // Use the index as ID
       HandsetName: handset.HandsetName,
-      EmployeeName: handset.FullName,
-      AssetName: handset.AssetName,
-      AllocationDate: handset.AllocationDate,
-      EmploymentStatus: handset.EmploymentStatus,
-      ReturnDueDate: handset.ReturnDueDate,
+      Role: handset.Role,
+      CreatedDate: handset.CreatedDate
     };
   });
 
@@ -293,6 +287,7 @@ function AdminProfileCard() {
         </div>
       </div>
       <div>
+      <div className="m-1 m-sm-3">
       <Box
           m="40px 0 0 0"
           height="100%"
@@ -344,6 +339,7 @@ function AdminProfileCard() {
             // onRowClick={handleRowClick}
           />
         </Box>
+      </div>
       </div>
     </div>
   );
