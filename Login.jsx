@@ -6,14 +6,17 @@ import iphone from "../../../assets/Img/iphone-card-removebg-preview 1.png";
 import login180 from "../../../assets/Img/MTC Vouchers_2017_53.34x9 1.png";
 import login50 from "../../../assets/Img/MTC Vouchers_2017_53.34x9 3.png";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import {login} from "../../../store/reducers/authReducer.js";
 
-const AdminLogin = () => {
+const Login = () => {
   const [passwordShown, setPasswordShown] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
@@ -44,7 +47,7 @@ const AdminLogin = () => {
 
     if (validateForm()) {
       try {
-        const response = await fetch("http://localhost:3002/employee/login", {
+        const response = await fetch("http://localhost:4000/auth/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -59,7 +62,25 @@ const AdminLogin = () => {
 
         if (response.ok) {
           console.log("Login successful", data);
-          navigate("/Dashboard");
+          console.log(data.employee.RoleID);
+          if(data.employee.RoleID !== 3){
+            dispatch(
+              login({
+                user: data.employee,
+                role: 'admin',
+              })
+            );
+            navigate("/admin/Dashboard");
+          }else{
+            dispatch(
+              login({
+                user: data.employee,
+                role: 'user',
+              })
+            );
+            navigate("/user/Dashboard");
+          }
+          
         } else {
           setEmailError("Invalid credentials");
           setPasswordError("Invalid credentials");
@@ -197,4 +218,4 @@ const AdminLogin = () => {
   );
 };
 
-export default AdminLogin;
+export default Login;
