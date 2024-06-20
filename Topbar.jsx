@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import { Box, IconButton, useTheme, Avatar } from "@mui/material";
 import { useContext } from "react";
 import { ColorModeContext, tokens } from "../../theme";
@@ -8,15 +9,20 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import logo from "../../assets/Img/image 1.png";
 import Dropdown from "react-bootstrap/Dropdown";
 import { BsPersonGear, BsGear, BsBoxArrowRight } from "react-icons/bs";
+import { useSelector, useDispatch } from "react-redux";
 
 const Topbar = ({ profilePicture,OpenSidebar }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
+  const currentUser = useSelector((state) => state.auth.user);
+  let profileImage = currentUser?.ProfileImage ? JSON.parse(currentUser.ProfileImage).ProfileImage : null;
 
-  
+  useEffect(() => {
+    console.log(profileImage);
+  }, [profileImage]);
   return (
-    <Box display="flex" justifyContent="space-between" p={4}>
+    <Box display="flex" justifyContent="space-between" alignItems="center" p={4}>
       {/* LOGO*/}
       <div className="d-none d-lg-block">
       <Box display="flex" borderRadius="3px" height={"45px"}>
@@ -52,7 +58,10 @@ const Topbar = ({ profilePicture,OpenSidebar }) => {
         {/* <IconButton>
           <SettingsOutlinedIcon />
         </IconButton> */}
-        <Avatar alt="User Profile" src={profilePicture} />
+        <div style={{ display: "flex", alignItems: "center", padding: "6px"}}>
+        {currentUser.FullName.length <= 14 ? currentUser.FullName : currentUser.LastName}
+        </div>
+        <Avatar alt="User Profile" src={profileImage} />
         <Dropdown className="dropdown" autoClose="outside">
           <Dropdown.Toggle variant="" id="dropdown-basic"></Dropdown.Toggle>
           <Dropdown.Menu className="dropdown-menu">

@@ -19,8 +19,12 @@ const excelFileUploadRoute = require("./routes/excelFIleUploadRoute");
 
 const app = express();
 
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
-app.use(bodyParser.json([imageRoutes.options, excelFileUploadRoute.options]));
+// Use the routes
+// app.use('/image', imageRoutes);
+// app.use('/excel', excelFileUploadRoute);
 app.use(cookieParser());
 
 app.use(cors(

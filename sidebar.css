@@ -75,9 +75,16 @@
   }
   .sidebar-list-item:hover,
   .sidebar-list-item > a:hover{
+    /* background-color: rgb(232, 232, 232);
+    cursor: pointer;
+    color: #1A69AC; */
+  }
+  .backNav{
     background-color: white;
     cursor: pointer;
     color: #1A69AC;
+    padding: 20px;
+    font-size: 18px;
   }
   ul a{
     text-decoration: none;
@@ -94,7 +101,7 @@
   .sidebar-responsive{
     display: inline !important;
     position: absolute;
-    z-index: 12 !important;
+    z-index: 999 !important;
   }
   .title{
     color: white;
@@ -154,6 +161,30 @@
     margin-top: 60px;
     height: 300px;
   }
+
+  /* Submenu */
+.sub-menu {
+  display: none; /* Initially hidden */
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  /* background-color: #444; */
+}
+
+.sub-menu.active {
+  display: block; /* Display when active */
+}
+
+/* Submenu items */
+.sub-menu li {
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sub-menu li:hover {
+  background-color: white;
+}
   
   @media screen and (max-width:991px) {
     .grid-container{
